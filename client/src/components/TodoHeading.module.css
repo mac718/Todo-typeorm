@@ -1,0 +1,40 @@
+.textWrapper {
+  background-color: #111;
+  color: #ccc;
+  transform: skewX(-8deg);
+  font-size: 6em;
+  font-weight: 900;
+  height: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  padding: 10px;
+  position: relative;
+}
+
+.left-entry {
+  animation: from-left 500ms ease-in forwards;
+}
+
+.right-entry {
+  animation: from-right 500ms ease-in forwards;
+}
+
+@keyframes from-left {
+  0% {
+    right: 100%;
+  }
+  100% {
+    right: 0;
+  }
+}
+
+@keyframes from-right {
+  0% {
+    left: 100%;
+  }
+  100% {
+    left: 0;
+  }
+}

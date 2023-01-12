@@ -1,32 +1,25 @@
-.complete {
-  background-color: greenyellow;
+.complete,
+.restore,
+.delete {
   width: 8em;
   height: 2em;
-  color: #118811;
   margin: 0 10px 10px 10px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+.complete {
+  background-color: greenyellow;
+  color: #118811;
 }
 
 .restore {
   background-color: lightblue;
-  width: 8em;
-  height: 2em;
   color: blue;
-  margin: 0 10px 10px 10px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .delete {
   background-color: #ff0000;
-  width: 8em;
-  height: 2em;
   color: #881111;
-  margin: 0 10px 10px 10px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
 }

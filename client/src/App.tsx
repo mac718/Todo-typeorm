@@ -3,6 +3,7 @@ import TodoList from "./components/TodoList";
 import Modal, { Backdrop } from "./components/Modal";
 import { useEffect, useState } from "react";
 import AddTaskForm from "./components/AddTaskForm";
+import TodoHeading from "./components/TodoHeading";
 
 function App() {
   const [addTaskOpen, setAddTaksOpen] = useState(false);
@@ -26,9 +27,8 @@ function App() {
   };
 
   const onSave = async (description: string, targetDate: Date) => {
-    console.log("doing it");
     try {
-      const res = await fetch("http://localhost:3000/tasks", {
+      await fetch("http://localhost:3000/tasks", {
         method: "POST",
         body: JSON.stringify({ description, targetDate, complete: false }),
         headers: {
@@ -55,6 +55,7 @@ function App() {
           </Modal>
         </div>
       )}
+      <TodoHeading />
       <button onClick={() => setAddTaksOpen(true)}>Add Task</button>
       <TodoList items={items} />
     </div>
