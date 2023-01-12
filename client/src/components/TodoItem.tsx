@@ -7,9 +7,16 @@ interface TodoItemProps {
   description: string;
   targetDate: string;
   complete: boolean;
+  onDelete: () => void;
 }
 
-const TodoItem = ({ id, description, targetDate, complete }: TodoItemProps) => {
+const TodoItem = ({
+  id,
+  description,
+  targetDate,
+  complete,
+  onDelete,
+}: TodoItemProps) => {
   const [crossed, setCrossed] = useState(complete);
   const date = targetDate;
   const classes = crossed ? `${styles.td} ${styles.line}` : `${styles.td}`;
@@ -37,7 +44,12 @@ const TodoItem = ({ id, description, targetDate, complete }: TodoItemProps) => {
       <td className={classes}>{description}</td>
       <td className={classes}>{date}</td>
       <td className={styles.td}>
-        <CompleteOrDelete onComplete={onComplete} completed={crossed} />
+        <CompleteOrDelete
+          onComplete={onComplete}
+          onDelete={onDelete}
+          completed={crossed}
+          id={id}
+        />
       </td>
     </tr>
   );

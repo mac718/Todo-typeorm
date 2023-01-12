@@ -42,6 +42,20 @@ function App() {
     }
   };
 
+  const onDelete = async (id: number) => {
+    try {
+      await fetch(`http://localhost:3000/tasks/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      getTasks();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     getTasks();
   }, []);
@@ -57,7 +71,7 @@ function App() {
       )}
       <TodoHeading />
       <button onClick={() => setAddTaksOpen(true)}>Add Task</button>
-      <TodoList items={items} />
+      <TodoList items={items} onDelete={onDelete} />
     </div>
   );
 }

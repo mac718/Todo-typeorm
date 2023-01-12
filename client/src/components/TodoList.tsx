@@ -11,9 +11,10 @@ interface Item {
 
 interface TodoListProps {
   items: Item[];
+  onDelete: () => void;
 }
 
-const TodoList = ({ items }: TodoListProps) => {
+const TodoList = ({ items, onDelete }: TodoListProps) => {
   return (
     <table className={styles.list}>
       <thead>
@@ -31,6 +32,7 @@ const TodoList = ({ items }: TodoListProps) => {
             description={item.description}
             targetDate={item.targetDate}
             complete={item.complete}
+            onDelete={onDelete}
             key={item.id}
           />
         ))}
