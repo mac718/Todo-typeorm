@@ -9,8 +9,19 @@
   justify-content: center;
 }
 
+.restore {
+  background-color: lightblue;
+  width: 8em;
+  height: 2em;
+  color: blue;
+  margin: 0 10px 10px 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .delete {
-  background-color: red;
+  background-color: #ff0000;
   width: 8em;
   height: 2em;
   color: #881111;

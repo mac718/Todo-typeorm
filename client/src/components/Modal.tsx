@@ -2,15 +2,10 @@ import styles from "./Modal.module.css";
 
 interface BackDropProps {
   onClose: () => void;
-  children: React.ReactNode;
 }
 
-export const Backdrop = ({ onClose, children }: BackDropProps) => {
-  return (
-    <div className={styles.backdrop} onClick={onClose}>
-      {children}
-    </div>
-  );
+export const Backdrop = ({ onClose }: BackDropProps) => {
+  return <div className={styles.backdrop} onClick={onClose}></div>;
 };
 
 interface ModalOverlayProps {

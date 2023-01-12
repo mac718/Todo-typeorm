@@ -6,9 +6,10 @@ interface CompleteOrDeleteProps {
 }
 
 const CompleteOrDelete = ({ onComplete, completed }: CompleteOrDeleteProps) => {
+  const classes = completed ? `${styles.restore}` : `${styles.complete}`;
   return (
     <div>
-      <button className={styles.complete} onClick={onComplete}>
+      <button className={classes} onClick={onComplete}>
         {completed ? "restore" : "completed"}
       </button>
       <button className={styles.delete}>delete</button>
