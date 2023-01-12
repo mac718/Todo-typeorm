@@ -14,7 +14,7 @@ const AddTaskForm = ({ onSave }: AddTAskFormProps) => {
   };
 
   const onTargetDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDescription((event.target as HTMLInputElement).value);
+    setTargetDate(new Date((event.target as HTMLInputElement).value));
   };
 
   return (
