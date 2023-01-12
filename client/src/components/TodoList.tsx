@@ -9,19 +9,11 @@ interface Item {
   complete: boolean;
 }
 
-const TodoList = () => {
-  const [items, setItems] = useState<Item[]>([]);
+interface TodoListProps {
+  items: Item[];
+}
 
-  useEffect(() => {
-    fetch("http://localhost:3000/tasks")
-      .then((res) => res.json())
-      .then((json) => {
-        setItems(json);
-        console.log(json);
-      })
-      .catch((err) => console.log(err));
-  }, []);
-
+const TodoList = ({ items }: TodoListProps) => {
   return (
     <table className={styles.list}>
       <thead>

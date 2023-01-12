@@ -1,23 +1,62 @@
 import "./App.css";
 import TodoList from "./components/TodoList";
 import Modal, { Backdrop } from "./components/Modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddTaskForm from "./components/AddTaskForm";
 
 function App() {
   const [addTaskOpen, setAddTaksOpen] = useState(false);
+  const [items, setItems] = useState<Item[]>([]);
+
+  interface Item {
+    id: number;
+    description: string;
+    targetDate: string;
+    complete: boolean;
+  }
+
+  const getTasks = async () => {
+    try {
+      const res = await fetch("http://localhost:3000/tasks");
+      const json = await res.json();
+      setItems(json);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const onSave = async (description: string, targetDate: Date) => {
+    console.log("doing it");
+    try {
+      const res = await fetch("http://localhost:3000/tasks", {
+        method: "POST",
+        body: JSON.stringify({ description, targetDate, complete: false }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      setAddTaksOpen(false);
+      getTasks();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getTasks();
+  }, []);
 
   return (
     <div className="App">
       {addTaskOpen && (
         <div>
           <Modal onClose={() => setAddTaksOpen(false)}>
-            <AddTaskForm />
+            <AddTaskForm onSave={onSave} />
           </Modal>
         </div>
       )}
       <button onClick={() => setAddTaksOpen(true)}>Add Task</button>
-      <TodoList />
+      <TodoList items={items} />
     </div>
   );
 }

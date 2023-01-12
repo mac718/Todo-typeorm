@@ -33,9 +33,8 @@ interface ModalProps {
 const Modal = ({ onClose, children }: ModalProps) => {
   return (
     <>
-      <Backdrop onClose={onClose}>
-        <ModalOverlay>{children}</ModalOverlay>
-      </Backdrop>
+      <Backdrop onClose={onClose} />
+      <ModalOverlay>{children}</ModalOverlay>
     </>
   );
 };
