@@ -25,7 +25,12 @@ const TodoItem = ({
     try {
       const res = await fetch("http://localhost:3000/tasks", {
         method: "PUT",
-        body: JSON.stringify({ description, targetDate, complete: !complete }),
+        body: JSON.stringify({
+          id,
+          description,
+          targetDate,
+          complete: !complete,
+        }),
         headers: {
           "Content-Type": "application/json",
         },

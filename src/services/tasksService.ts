@@ -1,7 +1,8 @@
-//import { TaskRepository } from "../repositories/taskRepository";
+import { TaskRepository } from "../repositories/taskRepository";
 import { Task } from "../entity/task.entity";
-import { myDataSource } from "../app-data-source";
-const TaskRepository = myDataSource.getRepository(Task);
+//import { myDataSource } from "../app-data-source";
+//import { myDataSource } from "../app";
+//const TaskRepository = myDataSource.getRepository(Task);
 
 export async function getAllTasks() {
   return await TaskRepository.find();
@@ -26,6 +27,7 @@ export async function createTask(
 }
 
 export async function deleteTask(id: number) {
+  console.log("thinssssss", id);
   await TaskRepository.delete({ id: id });
 }
 
@@ -35,10 +37,10 @@ export async function updateTask(
   targetDate: Date,
   complete: boolean
 ) {
-  console.log("id", complete);
+  console.log("id", id);
   const task = await TaskRepository.findOneBy({ id: id });
   if (!task) {
-    return null;
+    throw new Error("nope");
   }
   task.description = description;
   task.targetDate = targetDate;

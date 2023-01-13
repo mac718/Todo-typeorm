@@ -44,18 +44,21 @@ var getTasks = function (req, res) { return __awaiter(void 0, void 0, void 0, fu
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, (0, tasksService_1.getAllTasks)()];
+                console.log("helllooo");
+                _a.label = 1;
             case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, (0, tasksService_1.getAllTasks)()];
+            case 2:
                 tasks = _a.sent();
                 res.json(tasks);
-                return [3 /*break*/, 3];
-            case 2:
+                return [3 /*break*/, 4];
+            case 3:
                 err_1 = _a.sent();
                 console.log(err_1);
                 res.json({ error: err_1 });
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
         }
     });
 }); };

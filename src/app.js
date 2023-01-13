@@ -40,11 +40,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
-var app_data_source_1 = require("./app-data-source");
+//import { myDataSource } from "./app-data-source";
 var task_entity_1 = require("./entity/task.entity");
 var tasks_1 = require("./routes/tasks");
 var cors_1 = __importDefault(require("cors"));
-app_data_source_1.myDataSource
+var taskRepository_1 = require("./repositories/taskRepository");
+//import { DataSource, DataSourceOptions } from "typeorm";
+//let db: DataSourceOptions = config.get("database");
+// db = JSON.parse(JSON.stringify(db));
+// console.log("db", db);
+//const myDataSource = new DataSource(db);
+//console.log("db", myDataSource);
+taskRepository_1.myDataSource
     .initialize()
     .then(function () {
     console.log("Data Source has been initialized!");
@@ -66,10 +73,10 @@ app.post("/thing", function (req, res) { return __awaiter(void 0, void 0, void 0
         switch (_a.label) {
             case 0:
                 console.log("butts");
-                return [4 /*yield*/, app_data_source_1.myDataSource.getRepository(task_entity_1.Task).create(req.body)];
+                return [4 /*yield*/, taskRepository_1.myDataSource.getRepository(task_entity_1.Task).create(req.body)];
             case 1:
                 task = _a.sent();
-                return [4 /*yield*/, app_data_source_1.myDataSource.getRepository(task_entity_1.Task).save(task)];
+                return [4 /*yield*/, taskRepository_1.myDataSource.getRepository(task_entity_1.Task).save(task)];
             case 2:
                 results = _a.sent();
                 res.send(results);

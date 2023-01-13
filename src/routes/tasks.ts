@@ -9,6 +9,8 @@ import {
 import { body, param } from "express-validator";
 export const tasks = express.Router();
 
+console.log(tasks);
+
 tasks.route("/").get(getTasks);
 tasks.route("/:id").get(param("id").isInt({ min: 1 }), findOneTask);
 tasks

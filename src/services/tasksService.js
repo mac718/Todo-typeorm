@@ -37,15 +37,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateTask = exports.deleteTask = exports.createTask = exports.getOneTask = exports.getAllTasks = void 0;
-//import { TaskRepository } from "../repositories/taskRepository";
-var task_entity_1 = require("../entity/task.entity");
-var app_data_source_1 = require("../app-data-source");
-var TaskRepository = app_data_source_1.myDataSource.getRepository(task_entity_1.Task);
+var taskRepository_1 = require("../repositories/taskRepository");
+//import { myDataSource } from "../app-data-source";
+//import { myDataSource } from "../app";
+//const TaskRepository = myDataSource.getRepository(Task);
 function getAllTasks() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, TaskRepository.find()];
+                case 0: return [4 /*yield*/, taskRepository_1.TaskRepository.find()];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -59,7 +59,7 @@ function getOneTask(id) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, TaskRepository.findOneBy({ id: id })];
+                    return [4 /*yield*/, taskRepository_1.TaskRepository.findOneBy({ id: id })];
                 case 1: return [2 /*return*/, _a.sent()];
                 case 2:
                     err_1 = _a.sent();
@@ -76,8 +76,8 @@ function createTask(description, complete, targetDate) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    newTask = TaskRepository.create({ description: description, complete: complete, targetDate: targetDate });
-                    return [4 /*yield*/, TaskRepository.save(newTask)];
+                    newTask = taskRepository_1.TaskRepository.create({ description: description, complete: complete, targetDate: targetDate });
+                    return [4 /*yield*/, taskRepository_1.TaskRepository.save(newTask)];
                 case 1:
                     _a.sent();
                     return [2 /*return*/, newTask];
@@ -90,7 +90,9 @@ function deleteTask(id) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, TaskRepository.delete({ id: id })];
+                case 0:
+                    console.log("thinssssss", id);
+                    return [4 /*yield*/, taskRepository_1.TaskRepository.delete({ id: id })];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];
@@ -105,17 +107,17 @@ function updateTask(id, description, targetDate, complete) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    console.log("id", complete);
-                    return [4 /*yield*/, TaskRepository.findOneBy({ id: id })];
+                    console.log("id", id);
+                    return [4 /*yield*/, taskRepository_1.TaskRepository.findOneBy({ id: id })];
                 case 1:
                     task = _a.sent();
                     if (!task) {
-                        return [2 /*return*/, null];
+                        throw new Error("nope");
                     }
                     task.description = description;
                     task.targetDate = targetDate;
                     task.complete = complete;
-                    return [2 /*return*/, TaskRepository.save(task)];
+                    return [2 /*return*/, taskRepository_1.TaskRepository.save(task)];
             }
         });
     });

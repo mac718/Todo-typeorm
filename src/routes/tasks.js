@@ -8,6 +8,7 @@ var express_1 = __importDefault(require("express"));
 var tasksController_1 = require("../controllers/tasksController");
 var express_validator_1 = require("express-validator");
 exports.tasks = express_1.default.Router();
+console.log(exports.tasks);
 exports.tasks.route("/").get(tasksController_1.getTasks);
 exports.tasks.route("/:id").get((0, express_validator_1.param)("id").isInt({ min: 1 }), tasksController_1.findOneTask);
 exports.tasks

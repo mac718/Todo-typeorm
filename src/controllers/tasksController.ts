@@ -8,9 +8,9 @@ import {
 import { Task } from "../entity/task.entity";
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
-import { json } from "body-parser";
 
 export const getTasks = async (req: Request, res: Response) => {
+  console.log("helllooo");
   try {
     const tasks: Task[] = await getAllTasks();
     res.json(tasks);
