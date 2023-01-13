@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "start": "nodemon ./src/app.ts",
+    "test": "cross-env NODE_ENV=test jest",
+    "start": "cross-env NODE_ENV=development nodemon ./src/app.ts",
     "build": "tsc"
   },
   "keywords": [],
