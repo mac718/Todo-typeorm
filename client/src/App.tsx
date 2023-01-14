@@ -8,6 +8,7 @@ import TodoHeading from "./components/TodoHeading";
 function App() {
   const [addTaskOpen, setAddTaksOpen] = useState(false);
   const [items, setItems] = useState<Item[]>([]);
+  const [error, setError] = useState(false);
 
   interface Item {
     id: number;
