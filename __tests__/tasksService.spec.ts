@@ -1,14 +1,14 @@
 import { Task } from "../src/entity/task.entity";
 import { getAllTasks } from "../src/services/tasksService";
 import "reflect-metadata";
-import { testData } from "../src/app-data-source";
+import { dataSource } from "../src/app-data-source";
 
 beforeAll(async () => {
-  await testData.initialize();
+  await dataSource.initialize();
 });
 
 afterAll(async () => {
-  await testData.destroy();
+  await dataSource.destroy();
 });
 describe("Tasks Service", () => {
   describe("getTasks", () => {
