@@ -38,9 +38,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateTask = exports.deleteTask = exports.createTask = exports.getOneTask = exports.getAllTasks = void 0;
 var taskRepository_1 = require("../repositories/taskRepository");
-//import { myDataSource } from "../app-data-source";
-//import { myDataSource } from "../app";
-//const TaskRepository = myDataSource.getRepository(Task);
 function getAllTasks() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
