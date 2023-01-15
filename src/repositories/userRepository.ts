@@ -4,6 +4,6 @@ import config from "config";
 
 let db: DataSourceOptions = config.get("database");
 
-export const myDataSource = new DataSource(db);
+export const usersDataSource = new DataSource(db);
 
-export const UserRepository = myDataSource.getRepository(User);
+export const UserRepository = usersDataSource.getRepository(User);

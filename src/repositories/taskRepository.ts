@@ -4,6 +4,6 @@ import config from "config";
 
 let db: DataSourceOptions = config.get("database");
 
-export const myDataSource = new DataSource(db);
+export const tasksDataSource = new DataSource(db);
 
-export const TaskRepository = myDataSource.getRepository(Task);
+export const TaskRepository = tasksDataSource.getRepository(Task);

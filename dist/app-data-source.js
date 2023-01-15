@@ -1,7 +1,11 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.testData = exports.myDataSource = void 0;
+exports.dataSource = exports.testData = exports.myDataSource = void 0;
 var typeorm_1 = require("typeorm");
+var config_1 = __importDefault(require("config"));
 exports.myDataSource = new typeorm_1.DataSource({
     type: "postgres",
     host: "localhost",
@@ -24,3 +28,5 @@ exports.testData = new typeorm_1.DataSource({
     logging: true,
     synchronize: true,
 });
+var db = config_1.default.get("database");
+exports.dataSource = new typeorm_1.DataSource(db);

@@ -1,9 +1,12 @@
-import { UserRepository } from "../repositories/userRepository";
+//import { UserRepository } from "../repositories/userRepository";
+import { dataSource } from "../app-data-source";
 import jsonwebtoken from "jsonwebtoken";
 import { User } from "../entity/user.entity";
 import bcrypt from "bcryptjs";
 
-export async function SignUp(name: string, email: string, password: string) {
+const UserRepository = dataSource.getRepository(User);
+
+export async function signUp(name: string, email: string, password: string) {
   const existingUser = await UserRepository.findOneBy({ email });
   if (existingUser) {
     throw new Error("User already exists. Pleas log in.");

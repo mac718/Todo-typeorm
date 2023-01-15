@@ -1,4 +1,8 @@
-import { TaskRepository } from "../repositories/taskRepository";
+//import { TaskRepository } from "../repositories/taskRepository";
+import { Task } from "../entity/task.entity";
+import { dataSource } from "../app-data-source";
+
+const TaskRepository = dataSource.getRepository(Task);
 
 export async function getAllTasks() {
   return await TaskRepository.find();

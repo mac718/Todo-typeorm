@@ -35,48 +35,22 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.signUp = void 0;
-//import { UserRepository } from "../repositories/userRepository";
-var app_data_source_1 = require("../app-data-source");
-var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-var user_entity_1 = require("../entity/user.entity");
-var bcryptjs_1 = __importDefault(require("bcryptjs"));
-var UserRepository = app_data_source_1.dataSource.getRepository(user_entity_1.User);
-function signUp(name, email, password) {
-    return __awaiter(this, void 0, void 0, function () {
-        var existingUser, passwordHash, newUser, createdUser, token;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, UserRepository.findOneBy({ email: email })];
-                case 1:
-                    existingUser = _a.sent();
-                    if (existingUser) {
-                        throw new Error("User already exists. Pleas log in.");
-                    }
-                    return [4 /*yield*/, bcryptjs_1.default.hash(password, 10)];
-                case 2:
-                    passwordHash = _a.sent();
-                    newUser = new user_entity_1.User();
-                    newUser.name = name;
-                    newUser.email = email;
-                    newUser.password = passwordHash;
-                    newUser.token = "";
-                    newUser.tasks = [];
-                    return [4 /*yield*/, UserRepository.create(newUser)];
-                case 3:
-                    createdUser = _a.sent();
-                    token = jsonwebtoken_1.default.sign({ user_id: createdUser.id, email: createdUser.email }, "supersecretjwtsecret", { expiresIn: "2h" });
-                    newUser.token = token;
-                    return [4 /*yield*/, UserRepository.save(createdUser)];
-                case 4:
-                    _a.sent();
-                    return [2 /*return*/, createdUser];
-            }
-        });
+exports.register = void 0;
+var usersService_1 = require("../services/usersService");
+var register = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, name, email, password;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                console.log(req.body);
+                _a = req.body, name = _a.name, email = _a.email, password = _a.password;
+                return [4 /*yield*/, (0, usersService_1.signUp)(name, email, password)];
+            case 1:
+                _b.sent();
+                res.send("hi");
+                return [2 /*return*/];
+        }
     });
-}
-exports.signUp = signUp;
+}); };
+exports.register = register;

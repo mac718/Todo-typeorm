@@ -37,12 +37,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateTask = exports.deleteTask = exports.createTask = exports.getOneTask = exports.getAllTasks = void 0;
-var taskRepository_1 = require("../repositories/taskRepository");
+//import { TaskRepository } from "../repositories/taskRepository";
+var task_entity_1 = require("../entity/task.entity");
+var app_data_source_1 = require("../app-data-source");
+var TaskRepository = app_data_source_1.dataSource.getRepository(task_entity_1.Task);
 function getAllTasks() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, taskRepository_1.TaskRepository.find()];
+                case 0: return [4 /*yield*/, TaskRepository.find()];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -56,7 +59,7 @@ function getOneTask(id) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, taskRepository_1.TaskRepository.findOneBy({ id: id })];
+                    return [4 /*yield*/, TaskRepository.findOneBy({ id: id })];
                 case 1: return [2 /*return*/, _a.sent()];
                 case 2:
                     err_1 = _a.sent();
@@ -73,8 +76,8 @@ function createTask(description, complete, targetDate) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    newTask = taskRepository_1.TaskRepository.create({ description: description, complete: complete, targetDate: targetDate });
-                    return [4 /*yield*/, taskRepository_1.TaskRepository.save(newTask)];
+                    newTask = TaskRepository.create({ description: description, complete: complete, targetDate: targetDate });
+                    return [4 /*yield*/, TaskRepository.save(newTask)];
                 case 1:
                     _a.sent();
                     return [2 /*return*/, newTask];
@@ -89,7 +92,7 @@ function deleteTask(id) {
             switch (_a.label) {
                 case 0:
                     console.log("thinssssss", id);
-                    return [4 /*yield*/, taskRepository_1.TaskRepository.delete({ id: id })];
+                    return [4 /*yield*/, TaskRepository.delete({ id: id })];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];
@@ -105,7 +108,7 @@ function updateTask(id, description, targetDate, complete) {
             switch (_a.label) {
                 case 0:
                     console.log("id", id);
-                    return [4 /*yield*/, taskRepository_1.TaskRepository.findOneBy({ id: id })];
+                    return [4 /*yield*/, TaskRepository.findOneBy({ id: id })];
                 case 1:
                     task = _a.sent();
                     if (!task) {
@@ -114,7 +117,7 @@ function updateTask(id, description, targetDate, complete) {
                     task.description = description;
                     task.targetDate = targetDate;
                     task.complete = complete;
-                    return [2 /*return*/, taskRepository_1.TaskRepository.save(task)];
+                    return [2 /*return*/, TaskRepository.save(task)];
             }
         });
     });

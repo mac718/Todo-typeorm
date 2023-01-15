@@ -1,25 +1,6 @@
-import { DataSource } from "typeorm";
+import { DataSource, DataSourceOptions } from "typeorm";
+import config from "config";
 
-export const myDataSource = new DataSource({
-  type: "postgres",
-  host: "localhost",
-  port: 5432,
-  username: "postgres",
-  password: "postgres",
-  database: "todo",
-  entities: ["src/entity/*.js"],
-  logging: true,
-  synchronize: true,
-});
+const db: DataSourceOptions = config.get("database");
 
-export const testData = new DataSource({
-  type: "postgres",
-  host: "localhost",
-  port: 5432,
-  username: "postgres",
-  password: "postgres",
-  database: "todo-test",
-  entities: ["src/entity/*.js"],
-  logging: true,
-  synchronize: true,
-});
+export const dataSource = new DataSource(db);
