@@ -4,6 +4,8 @@ import Modal, { Backdrop } from "./components/Modal";
 import { useEffect, useState } from "react";
 import AddTaskForm from "./components/AddTaskForm";
 import TodoHeading from "./components/TodoHeading";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import SignUp from "./components/SignUp";
 
 function App() {
   const [addTaskOpen, setAddTaksOpen] = useState(false);
@@ -19,7 +21,7 @@ function App() {
 
   const getTasks = async () => {
     try {
-      const res = await fetch("http://localhost:3000/tasks");
+      const res = await fetch("http://localhost:3000/api/v1/tasks");
       const json = await res.json();
       setItems(json);
     } catch (err) {
@@ -29,7 +31,7 @@ function App() {
 
   const onSave = async (description: string, targetDate: Date) => {
     try {
-      await fetch("http://localhost:3000/tasks", {
+      await fetch("/api/v1/tasks", {
         method: "POST",
         body: JSON.stringify({ description, targetDate, complete: false }),
         headers: {
@@ -45,7 +47,7 @@ function App() {
 
   const onDelete = async (id: number) => {
     try {
-      await fetch(`http://localhost:3000/tasks/${id}`, {
+      await fetch(`api/v1/tasks/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -72,7 +74,15 @@ function App() {
       )}
       <TodoHeading />
       <button onClick={() => setAddTaksOpen(true)}>Add Task</button>
-      <TodoList items={items} onDelete={onDelete} />
+      <Router>
+        <Routes>
+          <Route
+            path="/"
+            element={<TodoList items={items} onDelete={onDelete} />}
+          />
+          <Route path="/register" element={<SignUp />} />
+        </Routes>
+      </Router>
     </div>
   );
 }

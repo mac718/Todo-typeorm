@@ -8,6 +8,7 @@ import {
 import { Task } from "../entity/task.entity";
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
+import { IGetUserAuthInfoRequest } from "../middlewares/auth";
 
 export const getTasks = async (req: Request, res: Response) => {
   console.log("helllooo");
@@ -34,7 +35,10 @@ export const findOneTask = async (req: Request, res: Response) => {
   }
 };
 
-export const createNewTask = async (req: Request, res: Response) => {
+export const createNewTask = async (
+  req: IGetUserAuthInfoRequest,
+  res: Response
+) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ Error: "Invalid request" });
@@ -42,6 +46,7 @@ export const createNewTask = async (req: Request, res: Response) => {
   const { description, complete, targetDate } = req.body;
   const date = new Date(targetDate);
   const newTask = await createTask(description, complete, date);
+  newTask.user = req.user!.user_id;
 
   if (!newTask) {
     res.status(404).json({ error: "task not found." });

@@ -23,7 +23,7 @@ const TodoItem = ({
 
   const onComplete = async () => {
     try {
-      const res = await fetch("http://localhost:3000/tasks", {
+      const res = await fetch("api/v1/tasks", {
         method: "PUT",
         body: JSON.stringify({
           id,

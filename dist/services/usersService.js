@@ -40,7 +40,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.signUp = void 0;
-//import { UserRepository } from "../repositories/userRepository";
 var app_data_source_1 = require("../app-data-source");
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var user_entity_1 = require("../entity/user.entity");
@@ -51,7 +50,9 @@ function signUp(name, email, password) {
         var existingUser, passwordHash, newUser, createdUser, token;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, UserRepository.findOneBy({ email: email })];
+                case 0:
+                    console.log("name", name, "email", email, "pass", password);
+                    return [4 /*yield*/, UserRepository.findOneBy({ email: email })];
                 case 1:
                     existingUser = _a.sent();
                     if (existingUser) {
@@ -70,7 +71,7 @@ function signUp(name, email, password) {
                 case 3:
                     createdUser = _a.sent();
                     token = jsonwebtoken_1.default.sign({ user_id: createdUser.id, email: createdUser.email }, "supersecretjwtsecret", { expiresIn: "2h" });
-                    newUser.token = token;
+                    createdUser.token = token;
                     return [4 /*yield*/, UserRepository.save(createdUser)];
                 case 4:
                     _a.sent();

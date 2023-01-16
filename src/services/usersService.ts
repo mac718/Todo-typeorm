@@ -1,4 +1,3 @@
-//import { UserRepository } from "../repositories/userRepository";
 import { dataSource } from "../app-data-source";
 import jsonwebtoken from "jsonwebtoken";
 import { User } from "../entity/user.entity";
@@ -7,6 +6,7 @@ import bcrypt from "bcryptjs";
 const UserRepository = dataSource.getRepository(User);
 
 export async function signUp(name: string, email: string, password: string) {
+  console.log("name", name, "email", email, "pass", password);
   const existingUser = await UserRepository.findOneBy({ email });
   if (existingUser) {
     throw new Error("User already exists. Pleas log in.");
@@ -29,7 +29,7 @@ export async function signUp(name: string, email: string, password: string) {
     { expiresIn: "2h" }
   );
 
-  newUser.token = token;
+  createdUser.token = token;
 
   await UserRepository.save(createdUser);
 

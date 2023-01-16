@@ -39,7 +39,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.register = void 0;
 var usersService_1 = require("../services/usersService");
 var register = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, name, email, password;
+    var _a, name, email, password, user;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -47,8 +47,9 @@ var register = function (req, res) { return __awaiter(void 0, void 0, void 0, fu
                 _a = req.body, name = _a.name, email = _a.email, password = _a.password;
                 return [4 /*yield*/, (0, usersService_1.signUp)(name, email, password)];
             case 1:
-                _b.sent();
-                res.send("hi");
+                user = _b.sent();
+                console.log("user", user);
+                res.cookie("token", user.token, { httpOnly: true }).sendStatus(201);
                 return [2 /*return*/];
         }
     });

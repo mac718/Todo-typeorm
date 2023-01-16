@@ -101,6 +101,7 @@ var createNewTask = function (req, res) { return __awaiter(void 0, void 0, void 
                 return [4 /*yield*/, (0, tasksService_1.createTask)(description, complete, date)];
             case 1:
                 newTask = _b.sent();
+                newTask.user = req.user.user_id;
                 if (!newTask) {
                     res.status(404).json({ error: "task not found." });
                 }
