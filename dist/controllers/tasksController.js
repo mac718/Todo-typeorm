@@ -39,26 +39,42 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.update = exports.deleteOneTask = exports.createNewTask = exports.findOneTask = exports.getTasks = void 0;
 var tasksService_1 = require("../services/tasksService");
 var express_validator_1 = require("express-validator");
+// export getUserTasks
+// export const getTasks = async (req: Request, res: Response) => {
+//   try {
+//     const tasks: Task[] = await getAllTasks();
+//     res.json(tasks);
+//   } catch (err) {
+//     console.log(err);
+//     res.json({ error: err });
+//   }
+// };
 var getTasks = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var tasks, err_1;
+    var user, tasks, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log("helllooo");
+                console.log("req.user", req.user);
+                user = req.user;
+                if (!req.user) return [3 /*break*/, 5];
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, (0, tasksService_1.getAllTasks)()];
+                return [4 /*yield*/, (0, tasksService_1.getUserTasks)(req.user.email)];
             case 2:
                 tasks = _a.sent();
-                res.json(tasks);
+                res.status(200).json(tasks);
                 return [3 /*break*/, 4];
             case 3:
                 err_1 = _a.sent();
                 console.log(err_1);
                 res.json({ error: err_1 });
                 return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+            case 4: return [3 /*break*/, 6];
+            case 5:
+                res.status(200).json([]);
+                _a.label = 6;
+            case 6: return [2 /*return*/];
         }
     });
 }); };
@@ -96,12 +112,13 @@ var createNewTask = function (req, res) { return __awaiter(void 0, void 0, void 
                 if (!errors.isEmpty()) {
                     return [2 /*return*/, res.status(400).json({ Error: "Invalid request" })];
                 }
+                console.log("user", req.user);
                 _a = req.body, description = _a.description, complete = _a.complete, targetDate = _a.targetDate;
                 date = new Date(targetDate);
-                return [4 /*yield*/, (0, tasksService_1.createTask)(description, complete, date)];
+                return [4 /*yield*/, (0, tasksService_1.createTask)(description, complete, date, req.user.email)];
             case 1:
                 newTask = _b.sent();
-                newTask.user = req.user.user_id;
+                //newTask.user = req.user!;
                 if (!newTask) {
                     res.status(404).json({ error: "task not found." });
                 }

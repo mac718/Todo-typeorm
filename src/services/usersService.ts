@@ -24,7 +24,7 @@ export async function signUp(name: string, email: string, password: string) {
   const createdUser = await UserRepository.create(newUser);
 
   const token = jsonwebtoken.sign(
-    { user_id: createdUser.id, email: createdUser.email },
+    { email: createdUser.email },
     "supersecretjwtsecret",
     { expiresIn: "2h" }
   );

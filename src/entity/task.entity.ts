@@ -17,5 +17,5 @@ export class Task {
   complete: boolean;
 
   @ManyToOne(() => User, (user) => user.tasks)
-  user: number;
+  user: User;
 }

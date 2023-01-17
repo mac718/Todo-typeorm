@@ -4,20 +4,37 @@ import {
   getOneTask,
   deleteTask,
   updateTask,
+  getUserTasks,
 } from "../services/tasksService";
 import { Task } from "../entity/task.entity";
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 import { IGetUserAuthInfoRequest } from "../middlewares/auth";
 
-export const getTasks = async (req: Request, res: Response) => {
-  console.log("helllooo");
-  try {
-    const tasks: Task[] = await getAllTasks();
-    res.json(tasks);
-  } catch (err) {
-    console.log(err);
-    res.json({ error: err });
+// export getUserTasks
+// export const getTasks = async (req: Request, res: Response) => {
+//   try {
+//     const tasks: Task[] = await getAllTasks();
+//     res.json(tasks);
+//   } catch (err) {
+//     console.log(err);
+//     res.json({ error: err });
+//   }
+// };
+
+export const getTasks = async (req: IGetUserAuthInfoRequest, res: Response) => {
+  console.log("req.user", req.user);
+  const user = req.user;
+  if (req.user) {
+    try {
+      const tasks: Task[] = await getUserTasks(req.user.email!);
+      res.status(200).json(tasks);
+    } catch (err) {
+      console.log(err);
+      res.json({ error: err });
+    }
+  } else {
+    res.status(200).json([]);
   }
 };
 
@@ -43,10 +60,16 @@ export const createNewTask = async (
   if (!errors.isEmpty()) {
     return res.status(400).json({ Error: "Invalid request" });
   }
+  console.log("user", req.user);
   const { description, complete, targetDate } = req.body;
   const date = new Date(targetDate);
-  const newTask = await createTask(description, complete, date);
-  newTask.user = req.user!.user_id;
+  const newTask = await createTask(
+    description,
+    complete,
+    date,
+    req.user!.email
+  );
+  //newTask.user = req.user!;
 
   if (!newTask) {
     res.status(404).json({ error: "task not found." });

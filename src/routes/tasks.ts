@@ -10,7 +10,7 @@ import { body, param } from "express-validator";
 import { checkToken } from "../middlewares/auth";
 export const tasks = express.Router();
 
-tasks.route("/").get(getTasks);
+tasks.route("/").get(checkToken, getTasks);
 tasks.route("/:id").get(param("id").isInt({ min: 1 }), findOneTask);
 tasks
   .route("/")

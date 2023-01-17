@@ -70,7 +70,7 @@ function signUp(name, email, password) {
                     return [4 /*yield*/, UserRepository.create(newUser)];
                 case 3:
                     createdUser = _a.sent();
-                    token = jsonwebtoken_1.default.sign({ user_id: createdUser.id, email: createdUser.email }, "supersecretjwtsecret", { expiresIn: "2h" });
+                    token = jsonwebtoken_1.default.sign({ email: createdUser.email }, "supersecretjwtsecret", { expiresIn: "2h" });
                     createdUser.token = token;
                     return [4 /*yield*/, UserRepository.save(createdUser)];
                 case 4:

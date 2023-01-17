@@ -2,7 +2,7 @@ import * as jwt from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 
 export interface IGetUserAuthInfoRequest extends Request {
-  user?: { user_id: number; email: string };
+  user?: { email: string; iat: number; exp: number };
 }
 
 export function checkToken(

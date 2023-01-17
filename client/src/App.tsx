@@ -21,7 +21,7 @@ function App() {
 
   const getTasks = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/v1/tasks");
+      const res = await fetch("/api/v1/tasks");
       const json = await res.json();
       setItems(json);
     } catch (err) {

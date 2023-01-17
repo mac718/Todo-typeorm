@@ -34,7 +34,7 @@ var Task = /** @class */ (function () {
     ], Task.prototype, "complete", void 0);
     __decorate([
         (0, typeorm_1.ManyToOne)(function () { return user_entity_1.User; }, function (user) { return user.tasks; }),
-        __metadata("design:type", Number)
+        __metadata("design:type", user_entity_1.User)
     ], Task.prototype, "user", void 0);
     Task = __decorate([
         (0, typeorm_1.Entity)("Task")

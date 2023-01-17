@@ -9,7 +9,7 @@ var tasksController_1 = require("../controllers/tasksController");
 var express_validator_1 = require("express-validator");
 var auth_1 = require("../middlewares/auth");
 exports.tasks = express_1.default.Router();
-exports.tasks.route("/").get(tasksController_1.getTasks);
+exports.tasks.route("/").get(auth_1.checkToken, tasksController_1.getTasks);
 exports.tasks.route("/:id").get((0, express_validator_1.param)("id").isInt({ min: 1 }), tasksController_1.findOneTask);
 exports.tasks
     .route("/")

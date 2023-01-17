@@ -36,11 +36,34 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateTask = exports.deleteTask = exports.createTask = exports.getOneTask = exports.getAllTasks = void 0;
+exports.updateTask = exports.deleteTask = exports.createTask = exports.getOneTask = exports.getAllTasks = exports.getUserTasks = void 0;
 //import { TaskRepository } from "../repositories/taskRepository";
 var task_entity_1 = require("../entity/task.entity");
 var app_data_source_1 = require("../app-data-source");
+var user_entity_1 = require("../entity/user.entity");
 var TaskRepository = app_data_source_1.dataSource.getRepository(task_entity_1.Task);
+var UserRepository = app_data_source_1.dataSource.getRepository(user_entity_1.User);
+function getUserTasks(email) {
+    return __awaiter(this, void 0, void 0, function () {
+        var user;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, UserRepository.findOneBy({ email: email })];
+                case 1:
+                    user = _a.sent();
+                    if (!user) {
+                        user = new user_entity_1.User();
+                    }
+                    return [4 /*yield*/, TaskRepository.find({
+                            relations: { user: true },
+                            where: { user: { email: email } },
+                        })];
+                case 2: return [2 /*return*/, _a.sent()];
+            }
+        });
+    });
+}
+exports.getUserTasks = getUserTasks;
 function getAllTasks() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
@@ -70,15 +93,28 @@ function getOneTask(id) {
     });
 }
 exports.getOneTask = getOneTask;
-function createTask(description, complete, targetDate) {
+function createTask(description, complete, targetDate, email) {
     return __awaiter(this, void 0, void 0, function () {
-        var newTask;
+        var user, newTask, task;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    newTask = TaskRepository.create({ description: description, complete: complete, targetDate: targetDate });
-                    return [4 /*yield*/, TaskRepository.save(newTask)];
+                case 0: return [4 /*yield*/, UserRepository.findOneBy({ email: email })];
                 case 1:
+                    user = _a.sent();
+                    console.log("usersmoozer", email);
+                    if (!user) {
+                        user = new user_entity_1.User();
+                    }
+                    newTask = new task_entity_1.Task();
+                    newTask.description = description;
+                    newTask.complete = complete;
+                    newTask.targetDate = targetDate;
+                    newTask.user = user;
+                    return [4 /*yield*/, TaskRepository.create(newTask)];
+                case 2:
+                    task = _a.sent();
+                    return [4 /*yield*/, TaskRepository.save(task)];
+                case 3:
                     _a.sent();
                     return [2 /*return*/, newTask];
             }

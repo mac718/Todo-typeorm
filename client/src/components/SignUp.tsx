@@ -9,7 +9,7 @@ const SignUp = () => {
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     try {
-      await fetch("/users", {
+      await fetch("/api/v1/users", {
         method: "POST",
         body: JSON.stringify({ name, email, password }),
         credentials: "include",
