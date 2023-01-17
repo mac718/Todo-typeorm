@@ -11,5 +11,5 @@ export const register = async (req: Request, res: Response) => {
 export const login = async (req: Request, res: Response) => {
   const { email, password } = req.body;
   const user = await loginUser(email, password);
-  res.cookie("token", user.token, { httpOnly: true }).sendStatus(201);
+  res.cookie("token", user.token, { httpOnly: true }).sendStatus(200);
 };

@@ -7,7 +7,7 @@ interface TodoItemProps {
   description: string;
   targetDate: string;
   complete: boolean;
-  onDelete: () => void;
+  onDelete: (id: number) => void;
 }
 
 const TodoItem = ({

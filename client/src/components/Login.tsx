@@ -1,14 +1,18 @@
 import styles from ".SignUp.module.css";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [success, setSucess] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     try {
-      await fetch("/api/v1/users/login", {
+      const res = await fetch("/api/v1/users/login", {
         method: "POST",
         body: JSON.stringify({ email, password }),
         credentials: "include",
@@ -16,6 +20,10 @@ const Login = () => {
           "Content-Type": "application/json",
         },
       });
+      console.log(res.status);
+      if (res.status === 200) {
+        navigate("/");
+      }
     } catch (err) {
       console.log(err);
     }

@@ -55,5 +55,9 @@ export async function loginUser(email: string, password: string) {
     expiresIn: "2h",
   });
 
+  existingUser.token = token;
+
+  await UserRepository.save(existingUser);
+
   return existingUser;
 }

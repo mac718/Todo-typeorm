@@ -62,7 +62,7 @@ var login = function (req, res) { return __awaiter(void 0, void 0, void 0, funct
                 return [4 /*yield*/, (0, usersService_1.loginUser)(email, password)];
             case 1:
                 user = _b.sent();
-                res.cookie("token", user.token, { httpOnly: true }).sendStatus(201);
+                res.cookie("token", user.token, { httpOnly: true }).sendStatus(200);
                 return [2 /*return*/];
         }
     });

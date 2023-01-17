@@ -102,6 +102,10 @@ function loginUser(email, password) {
                     token = jsonwebtoken_1.default.sign(payload, "supersecretjwtsecret", {
                         expiresIn: "2h",
                     });
+                    existingUser.token = token;
+                    return [4 /*yield*/, UserRepository.save(existingUser)];
+                case 3:
+                    _a.sent();
                     return [2 /*return*/, existingUser];
             }
         });
