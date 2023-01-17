@@ -36,22 +36,35 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.register = void 0;
+exports.login = exports.register = void 0;
 var usersService_1 = require("../services/usersService");
 var register = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var _a, name, email, password, user;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                console.log(req.body);
                 _a = req.body, name = _a.name, email = _a.email, password = _a.password;
                 return [4 /*yield*/, (0, usersService_1.signUp)(name, email, password)];
             case 1:
                 user = _b.sent();
-                console.log("user", user);
                 res.cookie("token", user.token, { httpOnly: true }).sendStatus(201);
                 return [2 /*return*/];
         }
     });
 }); };
 exports.register = register;
+var login = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, email, password, user;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _a = req.body, email = _a.email, password = _a.password;
+                return [4 /*yield*/, (0, usersService_1.loginUser)(email, password)];
+            case 1:
+                user = _b.sent();
+                res.cookie("token", user.token, { httpOnly: true }).sendStatus(201);
+                return [2 /*return*/];
+        }
+    });
+}); };
+exports.login = login;

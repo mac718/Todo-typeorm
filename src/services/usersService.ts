@@ -35,3 +35,25 @@ export async function signUp(name: string, email: string, password: string) {
 
   return createdUser;
 }
+
+export async function loginUser(email: string, password: string) {
+  const existingUser: User | null = await UserRepository.findOneBy({ email });
+  if (!existingUser) {
+    throw new Error(
+      "No user with this email exists. Please create an account."
+    );
+  }
+
+  const validPassword = await bcrypt.compare(password, existingUser.password);
+
+  if (!validPassword) {
+    throw new Error("Invalid password.");
+  }
+
+  const payload = { email: existingUser.email };
+  const token = jsonwebtoken.sign(payload, "supersecretjwtsecret", {
+    expiresIn: "2h",
+  });
+
+  return existingUser;
+}

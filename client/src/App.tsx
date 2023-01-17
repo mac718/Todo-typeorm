@@ -6,6 +6,7 @@ import AddTaskForm from "./components/AddTaskForm";
 import TodoHeading from "./components/TodoHeading";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SignUp from "./components/SignUp";
+import Login from "./components/Login";
 
 function App() {
   const [addTaskOpen, setAddTaksOpen] = useState(false);
@@ -81,6 +82,7 @@ function App() {
             element={<TodoList items={items} onDelete={onDelete} />}
           />
           <Route path="/register" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </Router>
     </div>

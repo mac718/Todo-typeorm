@@ -9,10 +9,12 @@ var tasksController_1 = require("../controllers/tasksController");
 var express_validator_1 = require("express-validator");
 var auth_1 = require("../middlewares/auth");
 exports.tasks = express_1.default.Router();
+function isAfterNow(dateString) {
+    var date = new Date(dateString);
+    return date > new Date();
+}
 exports.tasks.route("/").get(auth_1.checkToken, tasksController_1.getTasks);
 exports.tasks.route("/:id").get((0, express_validator_1.param)("id").isInt({ min: 1 }), tasksController_1.findOneTask);
-exports.tasks
-    .route("/")
-    .post((0, express_validator_1.body)("description").not().isEmpty().trim().escape(), auth_1.checkToken, tasksController_1.createNewTask);
+exports.tasks.route("/").post((0, express_validator_1.body)("description").not().isEmpty().trim().escape(), (0, express_validator_1.body)("targetDate").custom(function (value) { return isAfterNow(value); }), auth_1.checkToken, tasksController_1.createNewTask);
 exports.tasks.route("/:id").delete((0, express_validator_1.param)("id").isInt({ min: 1 }), tasksController_1.deleteOneTask);
 exports.tasks.route("/").put(tasksController_1.update);

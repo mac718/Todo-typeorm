@@ -39,7 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.signUp = void 0;
+exports.loginUser = exports.signUp = void 0;
 var app_data_source_1 = require("../app-data-source");
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var user_entity_1 = require("../entity/user.entity");
@@ -81,3 +81,30 @@ function signUp(name, email, password) {
     });
 }
 exports.signUp = signUp;
+function loginUser(email, password) {
+    return __awaiter(this, void 0, void 0, function () {
+        var existingUser, validPassword, payload, token;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, UserRepository.findOneBy({ email: email })];
+                case 1:
+                    existingUser = _a.sent();
+                    if (!existingUser) {
+                        throw new Error("No user with this email exists. Please create an account.");
+                    }
+                    return [4 /*yield*/, bcryptjs_1.default.compare(password, existingUser.password)];
+                case 2:
+                    validPassword = _a.sent();
+                    if (!validPassword) {
+                        throw new Error("Invalid password.");
+                    }
+                    payload = { email: existingUser.email };
+                    token = jsonwebtoken_1.default.sign(payload, "supersecretjwtsecret", {
+                        expiresIn: "2h",
+                    });
+                    return [2 /*return*/, existingUser];
+            }
+        });
+    });
+}
+exports.loginUser = loginUser;
