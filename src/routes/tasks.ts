@@ -12,7 +12,7 @@ export const tasks = express.Router();
 
 function isAfterNow(dateString: string): boolean {
   const date = new Date(dateString);
-  return date > new Date();
+  return date.getTime() > new Date().getTime();
 }
 
 tasks.route("/").get(checkToken, getTasks);
