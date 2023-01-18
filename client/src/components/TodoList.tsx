@@ -71,6 +71,7 @@ const TodoList = () => {
           </Modal>
         </div>
       )}
+      <div className={styles.heading}>Your Tasks:</div>
       <button onClick={() => setAddTaksOpen(true)}>Add Task</button>
       <table className={styles.list}>
         <thead>

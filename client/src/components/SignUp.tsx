@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./SignUp.module.css";
+import TodoHeading from "./TodoHeading";
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -22,27 +23,34 @@ const SignUp = () => {
     }
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="name">name</label>
-      <input
-        type="name"
-        id="text"
-        onChange={(event) => setName(event.target.value)}
-      />
-      <label htmlFor="email">email</label>
-      <input
-        type="email"
-        id="email"
-        onChange={(event) => setEmail(event.target.value)}
-      />
-      <label htmlFor="password">password</label>
-      <input
-        type="password"
-        id="password"
-        onChange={(event) => setPassword(event.target.value)}
-      />
-      <button type="submit">Login</button>
-    </form>
+    <>
+      <TodoHeading />
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <div className={styles.heading}>Sign Up</div>
+        <label htmlFor="name">name</label>
+        <input
+          type="name"
+          id="text"
+          className={styles.input}
+          onChange={(event) => setName(event.target.value)}
+        />
+        <label htmlFor="email">email</label>
+        <input
+          type="email"
+          id="email"
+          className={styles.input}
+          onChange={(event) => setEmail(event.target.value)}
+        />
+        <label htmlFor="password">password</label>
+        <input
+          type="password"
+          id="password"
+          className={styles.input}
+          onChange={(event) => setPassword(event.target.value)}
+        />
+        <button type="submit">Login</button>
+      </form>
+    </>
   );
 };
 

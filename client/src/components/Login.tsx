@@ -1,6 +1,7 @@
-import styles from ".SignUp.module.css";
+import styles from "./SignUp.module.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import TodoHeading from "./TodoHeading";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -22,7 +23,7 @@ const Login = () => {
       });
       console.log(res.status);
       if (res.status === 200) {
-        navigate("/");
+        navigate("/tasks");
       }
     } catch (err) {
       console.log(err);
@@ -30,21 +31,27 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="email">email</label>
-      <input
-        type="email"
-        id="email"
-        onChange={(event) => setEmail(event.target.value)}
-      />
-      <label htmlFor="password">password</label>
-      <input
-        type="password"
-        id="password"
-        onChange={(event) => setPassword(event.target.value)}
-      />
-      <button type="submit">submit</button>
-    </form>
+    <>
+      <TodoHeading />
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <div className={styles.heading}>Log in</div>
+        <label htmlFor="email">email</label>
+        <input
+          type="email"
+          id="email"
+          className={styles.input}
+          onChange={(event) => setEmail(event.target.value)}
+        />
+        <label htmlFor="password">password</label>
+        <input
+          type="password"
+          id="password"
+          className={styles.input}
+          onChange={(event) => setPassword(event.target.value)}
+        />
+        <button type="submit">submit</button>
+      </form>
+    </>
   );
 };
 
