@@ -11,7 +11,7 @@ var auth_1 = require("../middlewares/auth");
 exports.tasks = express_1.default.Router();
 function isAfterNow(dateString) {
     var date = new Date(dateString);
-    return date > new Date();
+    return date.getTime() > new Date().getTime();
 }
 exports.tasks.route("/").get(auth_1.checkToken, tasksController_1.getTasks);
 exports.tasks.route("/:id").get((0, express_validator_1.param)("id").isInt({ min: 1 }), tasksController_1.findOneTask);

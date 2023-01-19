@@ -1,8 +1,6 @@
-//import { TaskRepository } from "../repositories/taskRepository";
 import { Task } from "../entity/task.entity";
 import { dataSource } from "../app-data-source";
 import { User } from "../entity/user.entity";
-import { tasks } from "../routes/tasks";
 
 const TaskRepository = dataSource.getRepository(Task);
 const UserRepository = dataSource.getRepository(User);

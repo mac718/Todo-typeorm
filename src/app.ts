@@ -4,6 +4,9 @@ import { tasks } from "./routes/tasks";
 import cors from "cors";
 import { users } from "./routes/users";
 import { dataSource } from "./app-data-source";
+import * as dotenv from "dotenv";
+
+dotenv.config();
 
 dataSource
   .initialize()

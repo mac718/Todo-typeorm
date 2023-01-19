@@ -31,7 +31,7 @@ function checkToken(req, res, next) {
     if (!token) {
         throw new Error("Unauthorized. Please log in.");
     }
-    jwt.verify(token, "supersecretjwtsecret", function (err, decoded) {
+    jwt.verify(token, process.env.jwt_secret, function (err, decoded) {
         if (err) {
             throw new Error(err.message);
         }

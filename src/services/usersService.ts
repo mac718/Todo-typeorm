@@ -51,7 +51,7 @@ export async function loginUser(email: string, password: string) {
   }
 
   const payload = { email: existingUser.email };
-  const token = jsonwebtoken.sign(payload, "supersecretjwtsecret", {
+  const token = jsonwebtoken.sign(payload, process.env.jwt_secret!, {
     expiresIn: "2h",
   });
 

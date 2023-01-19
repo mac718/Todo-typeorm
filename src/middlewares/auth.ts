@@ -18,7 +18,7 @@ export function checkToken(
     throw new Error("Unauthorized. Please log in.");
   }
 
-  jwt.verify(token, "supersecretjwtsecret", (err: any, decoded: any) => {
+  jwt.verify(token, process.env.jwt_secret!, (err: any, decoded: any) => {
     if (err) {
       throw new Error(err.message);
     }

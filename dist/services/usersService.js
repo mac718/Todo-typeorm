@@ -99,7 +99,7 @@ function loginUser(email, password) {
                         throw new Error("Invalid password.");
                     }
                     payload = { email: existingUser.email };
-                    token = jsonwebtoken_1.default.sign(payload, "supersecretjwtsecret", {
+                    token = jsonwebtoken_1.default.sign(payload, process.env.jwt_secret, {
                         expiresIn: "2h",
                     });
                     existingUser.token = token;
