@@ -40,6 +40,7 @@ exports.login = exports.register = void 0;
 var usersService_1 = require("../services/usersService");
 var asyncWrapper_1 = require("../middlewares/asyncWrapper");
 var NotFoundError_1 = require("../errors/NotFoundError");
+var BadRequestError_1 = require("../errors/BadRequestError");
 exports.register = (0, asyncWrapper_1.asyncWrapper)(function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var _a, name, email, password, user;
     return __generator(this, function (_b) {
@@ -49,6 +50,9 @@ exports.register = (0, asyncWrapper_1.asyncWrapper)(function (req, res) { return
                 return [4 /*yield*/, (0, usersService_1.signUp)(name, email, password)];
             case 1:
                 user = _b.sent();
+                if (typeof user == "string") {
+                    throw new BadRequestError_1.BadRequestError("User already exists. Please log in.");
+                }
                 res.cookie("token", user.token, { httpOnly: true }).sendStatus(201);
                 return [2 /*return*/];
         }

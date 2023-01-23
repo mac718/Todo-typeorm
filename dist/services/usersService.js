@@ -56,7 +56,7 @@ function signUp(name, email, password) {
                 case 1:
                     existingUser = _a.sent();
                     if (existingUser) {
-                        throw new Error("User already exists. Pleas log in.");
+                        return [2 /*return*/, "User already exists. Pleas log in."];
                     }
                     return [4 /*yield*/, bcryptjs_1.default.hash(password, 10)];
                 case 2:

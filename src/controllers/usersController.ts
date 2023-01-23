@@ -4,10 +4,15 @@ import { asyncWrapper } from "../middlewares/asyncWrapper";
 import { CustomAPIError } from "../errors/customError";
 import { User } from "../entity/User.entity";
 import { NotFoundError } from "../errors/NotFoundError";
+import { BadRequestError } from "../errors/BadRequestError";
 
 export const register = asyncWrapper(async (req: Request, res: Response) => {
   const { name, email, password } = req.body;
-  const user = await signUp(name, email, password);
+  const user: User | string = await signUp(name, email, password);
+
+  if (typeof user == "string") {
+    throw new BadRequestError("User already exists. Please log in.");
+  }
 
   res.cookie("token", user.token, { httpOnly: true }).sendStatus(201);
 });

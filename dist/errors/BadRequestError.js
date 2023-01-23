@@ -15,17 +15,17 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.NotFoundError = void 0;
+exports.BadRequestError = void 0;
 var customError_1 = require("./customError");
-var NotFoundError = /** @class */ (function (_super) {
-    __extends(NotFoundError, _super);
-    function NotFoundError(message) {
+var BadRequestError = /** @class */ (function (_super) {
+    __extends(BadRequestError, _super);
+    function BadRequestError(message) {
         var _this = _super.call(this, message, 404) || this;
         //Typescipt bug - took me forever to figure out - must expictitly set prototype for
         //subclass to be recognized as subclass of superclass.
-        Object.setPrototypeOf(_this, NotFoundError.prototype);
+        Object.setPrototypeOf(_this, BadRequestError.prototype);
         return _this;
     }
-    return NotFoundError;
+    return BadRequestError;
 }(customError_1.CustomAPIError));
-exports.NotFoundError = NotFoundError;
+exports.BadRequestError = BadRequestError;

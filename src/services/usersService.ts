@@ -10,7 +10,7 @@ export async function signUp(name: string, email: string, password: string) {
   console.log("name", name, "email", email, "pass", password);
   const existingUser = await UserRepository.findOneBy({ email });
   if (existingUser) {
-    throw new Error("User already exists. Pleas log in.");
+    return "User already exists. Pleas log in.";
   }
 
   const passwordHash = await bcrypt.hash(password, 10);
