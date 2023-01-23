@@ -1,6 +1,6 @@
 import styles from "./SignUp.module.css";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import TodoHeading from "./TodoHeading";
 import ErrorNotification from "./ErrorNotification";
 
@@ -11,6 +11,7 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
@@ -43,6 +44,9 @@ const Login = () => {
       <TodoHeading />
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.heading}>Log in</div>
+        {location.state && (
+          <ErrorNotification message={location.state.errMsg} />
+        )}
         {error && <ErrorNotification message={errorMessage} />}
         <label htmlFor="email">email</label>
         <input

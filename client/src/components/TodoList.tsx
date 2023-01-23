@@ -21,9 +21,12 @@ const TodoList = () => {
     try {
       const res = await fetch("/api/v1/tasks");
       const json = await res.json();
-      setItems(json);
+      if (res.status === 200) {
+        setItems(json);
+      } else {
+        navigate("/login", { state: { errMsg: "Please log in." } });
+      }
     } catch (err) {
-      console.log(err);
       navigate("/login");
     }
   };

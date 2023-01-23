@@ -32,6 +32,7 @@ const AddTaskForm = ({ onSave }: AddTAskFormProps) => {
         id="target-date"
         className={styles.input}
         type="date"
+        min={Date.now()}
         onChange={onTargetDateChange}
       />
 
