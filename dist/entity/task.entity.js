@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Task = void 0;
 require("reflect-metadata");
 var typeorm_1 = require("typeorm");
-var user_entity_1 = require("./user.entity");
+var User_entity_1 = require("./User.entity");
 var Task = /** @class */ (function () {
     function Task() {
     }
@@ -33,8 +33,8 @@ var Task = /** @class */ (function () {
         __metadata("design:type", Boolean)
     ], Task.prototype, "complete", void 0);
     __decorate([
-        (0, typeorm_1.ManyToOne)(function () { return user_entity_1.User; }, function (user) { return user.tasks; }),
-        __metadata("design:type", user_entity_1.User)
+        (0, typeorm_1.ManyToOne)(function () { return User_entity_1.User; }, function (user) { return user.tasks; }),
+        __metadata("design:type", User_entity_1.User)
     ], Task.prototype, "user", void 0);
     Task = __decorate([
         (0, typeorm_1.Entity)("Task")

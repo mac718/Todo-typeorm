@@ -54,7 +54,6 @@ var getTasks = function (req, res) { return __awaiter(void 0, void 0, void 0, fu
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log("req.user", req.user);
                 user = req.user;
                 if (!req.user) return [3 /*break*/, 5];
                 _a.label = 1;

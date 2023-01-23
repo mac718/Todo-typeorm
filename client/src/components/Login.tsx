@@ -2,11 +2,13 @@ import styles from "./SignUp.module.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TodoHeading from "./TodoHeading";
+import ErrorNotification from "./ErrorNotification";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [success, setSucess] = useState(false);
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -24,9 +26,15 @@ const Login = () => {
       console.log(res.status);
       if (res.status === 200) {
         navigate("/tasks");
+      } else {
+        const json = await res.json();
+        setError(true);
+        setErrorMessage(json.msg);
       }
-    } catch (err) {
+    } catch (err: any) {
       console.log(err);
+      setError(true);
+      setErrorMessage(err.msg);
     }
   };
 
@@ -35,6 +43,7 @@ const Login = () => {
       <TodoHeading />
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.heading}>Log in</div>
+        {error && <ErrorNotification message={errorMessage} />}
         <label htmlFor="email">email</label>
         <input
           type="email"

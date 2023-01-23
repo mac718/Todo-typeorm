@@ -1,5 +1,5 @@
 import { DataSource, DataSourceOptions } from "typeorm";
-import { Task } from "../entity/task.entity";
+import { Task } from "../entity/Task.entity";
 import config from "config";
 
 let db: DataSourceOptions = config.get("database");

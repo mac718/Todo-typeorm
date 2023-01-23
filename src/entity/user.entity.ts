@@ -1,8 +1,8 @@
 import "reflect-metadata";
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
-import { Task } from "./task.entity";
+import { Task } from "./Task.entity";
 
-@Entity("User")
+@Entity("User", { name: "UserSchema" })
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
@@ -19,6 +19,6 @@ export class User {
   @Column()
   token: string;
 
-  @OneToMany(() => Task, (task) => task.user)
+  @OneToMany(() => Task, (task) => task.user, { onDelete: "CASCADE" })
   tasks: Task[];
 }

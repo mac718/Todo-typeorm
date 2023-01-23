@@ -1,7 +1,8 @@
 import { dataSource } from "../app-data-source";
 import jsonwebtoken from "jsonwebtoken";
-import { User } from "../entity/user.entity";
+import { User } from "../entity/User.entity";
 import bcrypt from "bcryptjs";
+import { NotFoundError } from "../errors/NotFoundError";
 
 const UserRepository = dataSource.getRepository(User);
 
@@ -25,7 +26,7 @@ export async function signUp(name: string, email: string, password: string) {
 
   const token = jsonwebtoken.sign(
     { email: createdUser.email },
-    "supersecretjwtsecret",
+    process.env.jwt_secret!,
     { expiresIn: "2h" }
   );
 
@@ -39,15 +40,13 @@ export async function signUp(name: string, email: string, password: string) {
 export async function loginUser(email: string, password: string) {
   const existingUser: User | null = await UserRepository.findOneBy({ email });
   if (!existingUser) {
-    throw new Error(
-      "No user with this email exists. Please create an account."
-    );
+    return "No user with this email exists. Please create an account.";
   }
 
   const validPassword = await bcrypt.compare(password, existingUser.password);
 
   if (!validPassword) {
-    throw new Error("Invalid password.");
+    return "Invalid password.";
   }
 
   const payload = { email: existingUser.email };

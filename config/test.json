@@ -5,8 +5,8 @@
     "port": 5432,
     "username": "postgres",
     "password": "postgres",
-    "database": "todo-test",
-    "entities": ["./dist/entity/*.js"],
+    "database": "todotest",
+    "entities": ["./src/entity/*.ts"],
     "logging": true,
     "synchronize": true
   }

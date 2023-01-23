@@ -6,7 +6,7 @@ import {
   updateTask,
   getUserTasks,
 } from "../services/tasksService";
-import { Task } from "../entity/task.entity";
+import { Task } from "../entity/Task.entity";
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 import { IGetUserAuthInfoRequest } from "../middlewares/auth";
@@ -23,7 +23,6 @@ import { IGetUserAuthInfoRequest } from "../middlewares/auth";
 // };
 
 export const getTasks = async (req: IGetUserAuthInfoRequest, res: Response) => {
-  console.log("req.user", req.user);
   const user = req.user;
   if (req.user) {
     try {

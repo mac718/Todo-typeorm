@@ -42,9 +42,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.loginUser = exports.signUp = void 0;
 var app_data_source_1 = require("../app-data-source");
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-var user_entity_1 = require("../entity/user.entity");
+var User_entity_1 = require("../entity/User.entity");
 var bcryptjs_1 = __importDefault(require("bcryptjs"));
-var UserRepository = app_data_source_1.dataSource.getRepository(user_entity_1.User);
+var UserRepository = app_data_source_1.dataSource.getRepository(User_entity_1.User);
 function signUp(name, email, password) {
     return __awaiter(this, void 0, void 0, function () {
         var existingUser, passwordHash, newUser, createdUser, token;
@@ -61,7 +61,7 @@ function signUp(name, email, password) {
                     return [4 /*yield*/, bcryptjs_1.default.hash(password, 10)];
                 case 2:
                     passwordHash = _a.sent();
-                    newUser = new user_entity_1.User();
+                    newUser = new User_entity_1.User();
                     newUser.name = name;
                     newUser.email = email;
                     newUser.password = passwordHash;
@@ -70,7 +70,7 @@ function signUp(name, email, password) {
                     return [4 /*yield*/, UserRepository.create(newUser)];
                 case 3:
                     createdUser = _a.sent();
-                    token = jsonwebtoken_1.default.sign({ email: createdUser.email }, "supersecretjwtsecret", { expiresIn: "2h" });
+                    token = jsonwebtoken_1.default.sign({ email: createdUser.email }, process.env.jwt_secret, { expiresIn: "2h" });
                     createdUser.token = token;
                     return [4 /*yield*/, UserRepository.save(createdUser)];
                 case 4:
@@ -90,13 +90,13 @@ function loginUser(email, password) {
                 case 1:
                     existingUser = _a.sent();
                     if (!existingUser) {
-                        throw new Error("No user with this email exists. Please create an account.");
+                        return [2 /*return*/, "No user with this email exists. Please create an account."];
                     }
                     return [4 /*yield*/, bcryptjs_1.default.compare(password, existingUser.password)];
                 case 2:
                     validPassword = _a.sent();
                     if (!validPassword) {
-                        throw new Error("Invalid password.");
+                        return [2 /*return*/, "Invalid password."];
                     }
                     payload = { email: existingUser.email };
                     token = jsonwebtoken_1.default.sign(payload, process.env.jwt_secret, {

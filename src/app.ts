@@ -5,6 +5,7 @@ import cors from "cors";
 import { users } from "./routes/users";
 import { dataSource } from "./app-data-source";
 import * as dotenv from "dotenv";
+import { errorHandlerMiddleware } from "./middlewares/errorHandler";
 
 dotenv.config();
 
@@ -28,6 +29,10 @@ app.use(express.json());
 app.use("/api/v1/tasks", tasks);
 app.use("/api/v1/users", users);
 
+app.use(errorHandlerMiddleware);
+
 app.listen(PORT, (): void => {
   console.log(`Listening on port: ${PORT}`);
 });
+
+export { app };

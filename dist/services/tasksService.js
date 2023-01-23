@@ -37,11 +37,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateTask = exports.deleteTask = exports.createTask = exports.getOneTask = exports.getAllTasks = exports.getUserTasks = void 0;
-var task_entity_1 = require("../entity/task.entity");
+var Task_entity_1 = require("../entity/Task.entity");
 var app_data_source_1 = require("../app-data-source");
-var user_entity_1 = require("../entity/user.entity");
-var TaskRepository = app_data_source_1.dataSource.getRepository(task_entity_1.Task);
-var UserRepository = app_data_source_1.dataSource.getRepository(user_entity_1.User);
+var User_entity_1 = require("../entity/User.entity");
+var TaskRepository = app_data_source_1.dataSource.getRepository(Task_entity_1.Task);
+var UserRepository = app_data_source_1.dataSource.getRepository(User_entity_1.User);
 function getUserTasks(email) {
     return __awaiter(this, void 0, void 0, function () {
         var user;
@@ -51,7 +51,7 @@ function getUserTasks(email) {
                 case 1:
                     user = _a.sent();
                     if (!user) {
-                        user = new user_entity_1.User();
+                        user = new User_entity_1.User();
                     }
                     return [4 /*yield*/, TaskRepository.find({
                             relations: { user: true },
@@ -102,9 +102,9 @@ function createTask(description, complete, targetDate, email) {
                     user = _a.sent();
                     console.log("usersmoozer", email);
                     if (!user) {
-                        user = new user_entity_1.User();
+                        user = new User_entity_1.User();
                     }
-                    newTask = new task_entity_1.Task();
+                    newTask = new Task_entity_1.Task();
                     newTask.description = description;
                     newTask.complete = complete;
                     newTask.targetDate = targetDate;

@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
-import { User } from "./user.entity";
+import { User } from "./User.entity";
 
 @Entity("Task")
 export class Task {

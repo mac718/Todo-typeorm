@@ -1,6 +1,6 @@
-import { Task } from "../entity/task.entity";
+import { Task } from "../entity/Task.entity";
 import { dataSource } from "../app-data-source";
-import { User } from "../entity/user.entity";
+import { User } from "../entity/User.entity";
 
 const TaskRepository = dataSource.getRepository(Task);
 const UserRepository = dataSource.getRepository(User);

@@ -36,39 +36,25 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.login = exports.register = void 0;
-var usersService_1 = require("../services/usersService");
-var asyncWrapper_1 = require("../middlewares/asyncWrapper");
-var NotFoundError_1 = require("../errors/NotFoundError");
-exports.register = (0, asyncWrapper_1.asyncWrapper)(function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, name, email, password, user;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
-            case 0:
-                _a = req.body, name = _a.name, email = _a.email, password = _a.password;
-                return [4 /*yield*/, (0, usersService_1.signUp)(name, email, password)];
-            case 1:
-                user = _b.sent();
-                res.cookie("token", user.token, { httpOnly: true }).sendStatus(201);
-                return [2 /*return*/];
-        }
-    });
-}); });
-exports.login = (0, asyncWrapper_1.asyncWrapper)(function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, email, password, user;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
-            case 0:
-                _a = req.body, email = _a.email, password = _a.password;
-                return [4 /*yield*/, (0, usersService_1.loginUser)(email, password)];
-            case 1:
-                user = _b.sent();
-                if (typeof user == "string") {
-                    console.log("thinger", user);
-                    throw new NotFoundError_1.NotFoundError(user);
-                }
-                res.cookie("token", user.token, { httpOnly: true }).sendStatus(200);
-                return [2 /*return*/];
-        }
-    });
-}); });
+exports.asyncWrapper = void 0;
+var asyncWrapper = function (fn) {
+    return function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+        var err_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, fn(req, res, next)];
+                case 1:
+                    _a.sent();
+                    return [3 /*break*/, 3];
+                case 2:
+                    err_1 = _a.sent();
+                    next(err_1);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    }); };
+};
+exports.asyncWrapper = asyncWrapper;
