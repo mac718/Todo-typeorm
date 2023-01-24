@@ -46,6 +46,7 @@ exports.register = (0, asyncWrapper_1.asyncWrapper)(function (req, res) { return
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
+                console.log("req", req.body);
                 _a = req.body, name = _a.name, email = _a.email, password = _a.password;
                 return [4 /*yield*/, (0, usersService_1.signUp)(name, email, password)];
             case 1:

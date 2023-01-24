@@ -7,6 +7,7 @@ import { NotFoundError } from "../errors/NotFoundError";
 import { BadRequestError } from "../errors/BadRequestError";
 
 export const register = asyncWrapper(async (req: Request, res: Response) => {
+  console.log("req", req.body);
   const { name, email, password } = req.body;
   const user: User | string = await signUp(name, email, password);
 
