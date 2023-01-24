@@ -21,3 +21,5 @@ While to-do apps are not very exciting, I settled on this option as it is a simp
 
 - Implement auth context
 - Write more tests
+- Convert target date display to more readable format
+- Text reminders for tasks with approaching target dates?
